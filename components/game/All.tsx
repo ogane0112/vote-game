@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 const GameBoard = () => {
+//ダミーデータ
   const [players, setPlayers] = useState([
     { name: 'Alice', money: 1000 },
     { name: 'Bob', money: 1200 },
@@ -10,6 +11,7 @@ const GameBoard = () => {
     { name: 'Eve', money: 950 },
     { name: 'Frank', money: 1100 }
   ]);
+  //お題のダミーデータ(きちんとした実装の時は,supabaseからデータをランダムに取得するようにするかな？)
   const [currentTopic, setCurrentTopic] = useState('お題を表示する場所');
 
   useEffect(() => {
@@ -24,7 +26,9 @@ const GameBoard = () => {
   return (
     <div className="bg-gray-900 text-gray-300 p-4 sm:p-6 font-mono">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        {/*現在のランキングを表示させる*/}
         <div className="rankingboard md:col-span-1 bg-gray-800 p-3 sm:p-4 rounded-lg shadow-lg border border-cyan-500">
+            
           <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-4 text-cyan-400">所持金ランキング</h2>
           {players.map((player, index) => (
             <div key={index} className="flex justify-between items-center mb-1 sm:mb-2">
@@ -33,7 +37,8 @@ const GameBoard = () => {
             </div>
           ))}
         </div>
-        
+
+        {/*投票ボード */}
         <div className="viteboard md:col-span-2 bg-gray-800 p-3 sm:p-4 rounded-lg shadow-lg border border-indigo-500">
           <h1 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-indigo-400">{currentTopic}</h1>
           <ul className="grid grid-cols-2 gap-2 sm:gap-4">
@@ -49,7 +54,7 @@ const GameBoard = () => {
             ))}
           </ul>
         </div>
-        
+        {/*プレイヤーの所持金を表示させる部分 */}
         <div className="statusboard col-span-1 md:col-span-3 bg-gray-800 p-3 sm:p-4 rounded-lg shadow-lg mt-4 sm:mt-6 border border-emerald-500">
           <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-4 text-emerald-400">トップの所持金</h2>
           <p className="text-2xl sm:text-3xl font-bold text-yellow-400">{players[0].money} 円</p>
