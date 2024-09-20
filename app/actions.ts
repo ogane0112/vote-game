@@ -5,6 +5,25 @@ import { createClient } from '@/utils/supabase/server'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
+export const registerName = async (formData: FormData) => {
+  const supabase = createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  const id = user?.id
+  const name = formData.get('name')?.toString()
+  const { error } = await supabase
+    .from('userprofile')
+    .insert([{ name: name, auth_id: id }])
+    .select()
+  if (error) {
+    console.log(error)
+    return encodedRedirect('error', '/test', '既に登録済みです！')
+  } else {
+    return redirect('/protected')
+  }
+}
+
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get('email')?.toString()
   const password = formData.get('password')?.toString()
