@@ -1,6 +1,6 @@
 // Start of Selection
 import React from 'react'
-import { registerName } from '@/app/actions'
+import { registerName } from '@/utils/supabase/actions'
 import { SubmitButton } from '@/components/submit-button'
 import { Input } from '@/components/ui/input'
 import { FormMessage, Message } from '../form-message'

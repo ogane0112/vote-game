@@ -1,5 +1,5 @@
 import { SubmitButton } from '../submit-button'
-import { signOutAction } from '@/app/actions'
+import { signOutAction } from '@/utils/supabase/actions'
 function BackButton() {
   return (
     <SubmitButton
