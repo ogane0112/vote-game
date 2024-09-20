@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import GameEndButton from '@/components/start/GameEndButton'
+import BackButton from './BackButton'
+import CreateRoomButton from './CreateRoomButton'
+import JoinRoomButton from './JoinRoomButton'
 
 const GameStartScreen: React.FC = () => {
   return (
@@ -9,11 +11,8 @@ const GameStartScreen: React.FC = () => {
         <h1 className='text-4xl font-bold mb-8 text-center text-indigo-400'>お題当てゲーム</h1>
 
         <div className='space-y-4'>
-          <Link href='/sign-up' className='block w-full'>
-            <button className='w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded transition duration-300 ease-in-out'>
-              ゲーム開始
-            </button>
-          </Link>
+          <CreateRoomButton />
+          <JoinRoomButton />
 
           <Link href='/rules' className='block w-full'>
             <button className='w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-4 rounded transition duration-300 ease-in-out'>
@@ -26,7 +25,7 @@ const GameStartScreen: React.FC = () => {
               設定
             </button>
           </Link>
-          <GameEndButton />
+          <BackButton />
         </div>
       </div>
     </main>
