@@ -36,7 +36,10 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
             minLength={6}
             required
           />
-          <SubmitButton formAction={signUpAction} pendingText="サインアップ中...">
+          <SubmitButton
+            formAction={signUpAction}
+            pendingText="サインアップ中..."
+          >
             サインアップ
           </SubmitButton>
           <FormMessage message={searchParams} />
