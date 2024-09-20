@@ -1,3 +1,4 @@
+ // Start of Selection
 import { signInAction } from '@/utils/supabase/actions'
 import { FormMessage, Message } from '@/components/form-message'
 import { SubmitButton } from '@/components/submit-button'
@@ -7,25 +8,25 @@ import Link from 'next/link'
 
 export default function Login({ searchParams }: { searchParams: Message }) {
   return (
-    <form className='flex-1 flex flex-col min-w-64'>
-      <h1 className='text-2xl font-medium'>サインイン</h1>
-      <p className='text-sm text-foreground'>
+    <form className='flex flex-col w-full max-w-md mx-auto p-6 bg-gray-800 rounded-lg shadow-lg'>
+      <h1 className='text-3xl font-bold text-white text-center'>サインイン</h1>
+      <p className='text-sm text-gray-400 text-center mt-2'>
         アカウントをお持ちでないですか？{' '}
-        <Link className='text-foreground font-medium underline' href='/sign-up'>
+        <Link className='text-indigo-400 font-medium underline' href='/sign-up'>
           サインアップ
         </Link>
       </p>
-      <div className='flex flex-col gap-2 [&>input]:mb-3 mt-8'>
-        <Label htmlFor='email'>メールアドレス</Label>
-        <Input name='email' placeholder='you@example.com' required />
+      <div className='flex flex-col gap-4 mt-6'>
+        <Label htmlFor='email' className='text-gray-200'>メールアドレス</Label>
+        <Input name='email' placeholder='you@example.com' required className='bg-gray-700 text-gray-300 placeholder-gray-500' />
         <div className='flex justify-between items-center'>
-          <Label htmlFor='password'>パスワード</Label>
-          <Link className='text-xs text-foreground underline' href='/forgot-password'>
+          <Label htmlFor='password' className='text-gray-200'>パスワード</Label>
+          <Link className='text-xs text-indigo-400 underline' href='/forgot-password'>
             パスワードをお忘れですか？
           </Link>
         </div>
-        <Input type='password' name='password' placeholder='パスワード' required />
-        <SubmitButton pendingText='サインイン中...' formAction={signInAction}>
+        <Input type='password' name='password' placeholder='パスワード' required className='bg-gray-700 text-gray-300 placeholder-gray-500' />
+        <SubmitButton pendingText='サインイン中...' formAction={signInAction} className='bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded transition duration-300'>
           サインイン
         </SubmitButton>
         <FormMessage message={searchParams} />
