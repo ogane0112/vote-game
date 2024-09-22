@@ -26,11 +26,31 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
           </Link>
         </p>
         <div className='flex flex-col gap-4 mt-6'>
-          <Label htmlFor='email' className='text-gray-200'>メールアドレス</Label>
-          <Input name='email' placeholder='you@example.com' required className='bg-gray-700 text-gray-300 placeholder-gray-500' />
-          <Label htmlFor='password' className='text-gray-200'>パスワード</Label>
-          <Input type='password' name='password' placeholder='パスワード' minLength={6} required className='bg-gray-700 text-gray-300 placeholder-gray-500' />
-          <SubmitButton formAction={signUpAction} pendingText='サインアップ中...' className='bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded transition duration-300'>
+          <Label htmlFor='email' className='text-gray-200'>
+            メールアドレス
+          </Label>
+          <Input
+            name='email'
+            placeholder='you@example.com'
+            required
+            className='bg-gray-700 text-gray-300 placeholder-gray-500'
+          />
+          <Label htmlFor='password' className='text-gray-200'>
+            パスワード
+          </Label>
+          <Input
+            type='password'
+            name='password'
+            placeholder='パスワード'
+            minLength={6}
+            required
+            className='bg-gray-700 text-gray-300 placeholder-gray-500'
+          />
+          <SubmitButton
+            formAction={signUpAction}
+            pendingText='サインアップ中...'
+            className='bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded transition duration-300'
+          >
             サインアップ
           </SubmitButton>
           <FormMessage message={searchParams} />

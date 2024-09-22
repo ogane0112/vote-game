@@ -1,4 +1,4 @@
- // Start of Selection
+// Start of Selection
 import { signInAction } from '@/utils/supabase/actions'
 import { FormMessage, Message } from '@/components/form-message'
 import { SubmitButton } from '@/components/submit-button'
@@ -17,16 +17,35 @@ export default function Login({ searchParams }: { searchParams: Message }) {
         </Link>
       </p>
       <div className='flex flex-col gap-4 mt-6'>
-        <Label htmlFor='email' className='text-gray-200'>メールアドレス</Label>
-        <Input name='email' placeholder='you@example.com' required className='bg-gray-700 text-gray-300 placeholder-gray-500' />
+        <Label htmlFor='email' className='text-gray-200'>
+          メールアドレス
+        </Label>
+        <Input
+          name='email'
+          placeholder='you@example.com'
+          required
+          className='bg-gray-700 text-gray-300 placeholder-gray-500'
+        />
         <div className='flex justify-between items-center'>
-          <Label htmlFor='password' className='text-gray-200'>パスワード</Label>
+          <Label htmlFor='password' className='text-gray-200'>
+            パスワード
+          </Label>
           <Link className='text-xs text-indigo-400 underline' href='/forgot-password'>
             パスワードをお忘れですか？
           </Link>
         </div>
-        <Input type='password' name='password' placeholder='パスワード' required className='bg-gray-700 text-gray-300 placeholder-gray-500' />
-        <SubmitButton pendingText='サインイン中...' formAction={signInAction} className='bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded transition duration-300'>
+        <Input
+          type='password'
+          name='password'
+          placeholder='パスワード'
+          required
+          className='bg-gray-700 text-gray-300 placeholder-gray-500'
+        />
+        <SubmitButton
+          pendingText='サインイン中...'
+          formAction={signInAction}
+          className='bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded transition duration-300'
+        >
           サインイン
         </SubmitButton>
         <FormMessage message={searchParams} />

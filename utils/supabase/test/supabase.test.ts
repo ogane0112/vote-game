@@ -1,38 +1,38 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createClient } from '@/utils/supabase/server'
-import { 
-  getTheme, 
-  registerName, 
-  changeName, 
-  signUpAction, 
-  signInAction, 
+import {
+  getTheme,
+  registerName,
+  changeName,
+  signUpAction,
+  signInAction,
   forgotPasswordAction,
   resetPasswordAction,
-  signOutAction
+  signOutAction,
 } from '../actions'
 import { encodedRedirect } from '@/utils/utils'
 import { redirect } from 'next/navigation'
 
 // Supabaseクライアントのモック
 vi.mock('@/utils/supabase/server', () => ({
-  createClient: vi.fn()
+  createClient: vi.fn(),
 }))
 
 // ユーティリティ関数のモック
 vi.mock('@/utils/utils', () => ({
-  encodedRedirect: vi.fn()
+  encodedRedirect: vi.fn(),
 }))
 
 // Next.jsのリダイレクト関数のモック
 vi.mock('next/navigation', () => ({
-  redirect: vi.fn()
+  redirect: vi.fn(),
 }))
 
 // Next.jsのヘッダー関数のモック
 vi.mock('next/headers', () => ({
   headers: vi.fn(() => ({
-    get: vi.fn(() => 'http://localhost:3000')
-  }))
+    get: vi.fn(() => 'http://localhost:3000'),
+  })),
 }))
 
 describe('Server Actions', () => {
@@ -56,8 +56,8 @@ describe('Server Actions', () => {
         signInWithPassword: vi.fn(),
         resetPasswordForEmail: vi.fn(),
         updateUser: vi.fn(),
-        signOut: vi.fn()
-      }
+        signOut: vi.fn(),
+      },
     }
     vi.mocked(createClient).mockReturnValue(mockSupabase)
   })
@@ -210,13 +210,19 @@ describe('Server Actions', () => {
     })
 
     it('エラー時に適切にリダイレクトすること', async () => {
-      mockSupabase.auth.resetPasswordForEmail.mockResolvedValue({ error: new Error('Reset failed') })
+      mockSupabase.auth.resetPasswordForEmail.mockResolvedValue({
+        error: new Error('Reset failed'),
+      })
 
       const formData = new FormData()
       formData.append('email', 'test@example.com')
 
       await forgotPasswordAction(formData)
-      expect(encodedRedirect).toHaveBeenCalledWith('error', '/forgot-password', 'Could not reset password')
+      expect(encodedRedirect).toHaveBeenCalledWith(
+        'error',
+        '/forgot-password',
+        'Could not reset password'
+      )
     })
   })
 
@@ -230,9 +236,12 @@ describe('Server Actions', () => {
       formData.append('confirmPassword', 'newpassword123')
 
       await resetPasswordAction(formData)
-      expect(encodedRedirect).toHaveBeenCalledWith('success', '/protected/reset-password', 'Password updated')
+      expect(encodedRedirect).toHaveBeenCalledWith(
+        'success',
+        '/protected/reset-password',
+        'Password updated'
+      )
     })
-
 
     it('Supabaseエラー時に適切にリダイレクトすること', async () => {
       mockSupabase.auth.updateUser.mockResolvedValue({ error: new Error('Update failed') })
@@ -242,7 +251,11 @@ describe('Server Actions', () => {
       formData.append('confirmPassword', 'newpassword123')
 
       await resetPasswordAction(formData)
-      expect(encodedRedirect).toHaveBeenCalledWith('error', '/protected/reset-password', 'Password update failed')
+      expect(encodedRedirect).toHaveBeenCalledWith(
+        'error',
+        '/protected/reset-password',
+        'Password update failed'
+      )
     })
   })
 

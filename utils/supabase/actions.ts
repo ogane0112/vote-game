@@ -5,26 +5,56 @@ import { createClient } from '@/utils/supabase/server'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-//お題をランダムに取得する処理
-export const getTheme = async() => {
-  const supabase = createClient()
-    
-  let { data: theme, error } = await supabase
-  .from('theme')
-  .select('*')
 
-  if(error)encodedRedirect('error', '/test', 'データ取得に失敗しました')
-        
+export const getUserId = async():Promise<string> => {
+    const supabase = createClient()
+    //userIDを取得する処理
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+  
+    if (!user) {
+      return encodedRedirect('error', '/test', 'user認証に失敗しました！')
+    }
+
+    const authId = user?.id
+
+    const { data, error } = await supabase
+      .from('userprofile')
+      .select('*')
+      .eq('auth_id', authId)
+      .single()
+
+    console.log(data.id)
+
+    return  data.id
+}
+
+//お題をランダムに取得する処理
+export const getTheme = async () => {
+  const supabase = createClient()
+
+  const { data: theme, error } = await supabase.from('topics').select('*').order('random()')
+
+  if (error) encodedRedirect('error', '/test', 'データ取得に失敗しました')
 
   return theme
-
 }
 //部屋へ入出する処理
-export const enterRoom = async() => {
-
-}
+export const enterRoom = async () => {}
 //部屋を作成する処理
-export const makeRoom = async() => {
+export const makeRoom= async (): Promise<void>  => {
+const supabase = createClient()
+const userId = await getUserId()
+const { data: topic, error:topicsError } = await supabase.from('topics').select('id').order('random()').single()
+const {data,error: createRoomError } = await supabase
+.from('games')
+.insert([
+  { current_topic_id : topic, current_round: 0,status: "active",creator_id:  userId},
+])
+.select()
+
+redirect(`/protected/room/${data[0].id}`)
 
 }
 
@@ -53,7 +83,6 @@ export const changeName = async (formData: FormData) => {
   if (error) {
     return encodedRedirect('error', '/test', 'エラーが発生しました')
   }
-
 }
 
 //初回名前登録の処理
@@ -182,8 +211,12 @@ export const resetPasswordAction = async (formData: FormData) => {
   encodedRedirect('success', '/protected/reset-password', 'Password updated')
 }
 
+
+//ログアウトする処理
 export const signOutAction = async () => {
   const supabase = createClient()
   await supabase.auth.signOut()
   return redirect('/')
 }
+
+

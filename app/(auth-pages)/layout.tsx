@@ -1,5 +1,5 @@
- // Start of Selection
-import React from 'react';
+// Start of Selection
+import React from 'react'
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,5 +8,5 @@ export default async function Layout({ children }: { children: React.ReactNode }
         {children}
       </div>
     </div>
-  );
+  )
 }

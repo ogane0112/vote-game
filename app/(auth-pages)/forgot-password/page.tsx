@@ -18,9 +18,21 @@ export default function ForgotPassword({ searchParams }: { searchParams: Message
         </p>
       </div>
       <div className='flex flex-col gap-4 mt-6'>
-        <Label htmlFor='email' className='text-gray-200'>メールアドレス</Label>
-        <Input name='email' placeholder='you@example.com' required className='bg-gray-700 text-gray-300 placeholder-gray-500' />
-        <SubmitButton formAction={forgotPasswordAction} className='bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded transition duration-300'>パスワードをリセット</SubmitButton>
+        <Label htmlFor='email' className='text-gray-200'>
+          メールアドレス
+        </Label>
+        <Input
+          name='email'
+          placeholder='you@example.com'
+          required
+          className='bg-gray-700 text-gray-300 placeholder-gray-500'
+        />
+        <SubmitButton
+          formAction={forgotPasswordAction}
+          className='bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded transition duration-300'
+        >
+          パスワードをリセット
+        </SubmitButton>
         <FormMessage message={searchParams} />
       </div>
     </form>
