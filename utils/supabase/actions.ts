@@ -6,6 +6,8 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 
+
+//userIDを取得する関数
 export const getUserId = async():Promise<string> => {
     const supabase = createClient()
     //userIDを取得する処理
@@ -40,21 +42,56 @@ export const getTheme = async () => {
 
   return theme
 }
+export const entryPlayer = async() =>{
+  const supabase = createClient()
+    
+  const { data, error } = await supabase
+  .from('players')
+  .insert([
+    { some_column: 'someValue', other_column: 'otherValue' },
+  ])
+  .select()
+
+}
 //部屋へ入出する処理
-export const enterRoom = async () => {}
+export const enterRoom = async ():Promise<void> => {
+  const supabase = createClient()
+    
+  const { data, error } = await supabase
+  .from('players')
+  .insert([
+    { some_column: 'someValue', other_column: 'otherValue' },
+  ])
+  .select()
+        
+}
 //部屋を作成する処理
 export const makeRoom= async (): Promise<void>  => {
 const supabase = createClient()
 const userId = await getUserId()
-const { data: topic, error:topicsError } = await supabase.from('topics').select('id').order('random()').single()
-const {data,error: createRoomError } = await supabase
+const { data:topic, error } = await supabase
+  .rpc('get_random_topic')
+  .single();
+const {data:games,error: createRoomError } = await supabase
 .from('games')
 .insert([
-  { current_topic_id : topic, current_round: 0,status: "active",creator_id:  userId},
+  { current_topic_id : topic.id, current_round: 0,status: "active",creator_id:  userId},
 ])
 .select()
+.single()
+console.log(games)
 
-redirect(`/protected/room/${data[0].id}`)
+    
+// const { data:playerData, error } = await supabase
+// .from('players')
+// .insert([
+//   { game_id: data[0].id, other_column: 'otherValue' },
+// ])
+// .select()
+
+
+
+redirect(`/protected/room/${games.id}`)
 
 }
 

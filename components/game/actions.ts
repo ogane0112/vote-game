@@ -60,15 +60,15 @@ export   interface GameState {
   
     async function fetchGameState() {
       const { data, error } = await supabase
-        .from('GAMES')
+        .from('games')
         .select(`
           id,
           status,
           current_topic_id,
           current_round,
-          TOPICS (id, content, order),
-          VOTES (id, voter_id, voted_for_id, bet_amount, topic_id),
-          PLAYERS (id, user_id, coins)
+          topics (id, content),
+          votes (id, voter_id, voted_for_id, bet_amount, topic_id),
+          players (id, user_id, coins)
         `)
         .eq('id', gameId)
         .single()
@@ -84,7 +84,7 @@ export   interface GameState {
       if (!gameState || gameState.status !== 'active') return
   
       const { error } = await supabase
-        .from('VOTES')
+        .from('votes')
         .insert({
           game_id: gameState.id,
           topic_id: gameState.current_topic_id,
@@ -116,7 +116,7 @@ export   interface GameState {
   
       if (gameState.current_round >= 10) {
         const { error: updateError } = await supabase
-          .from('GAMES')
+          .from('games')
           .update({ status: 'completed' })
           .eq('id', gameState.id)
   
@@ -128,7 +128,7 @@ export   interface GameState {
       if (!gameState) return
   
       const { error: deleteError } = await supabase
-        .from('PLAYERS')
+        .from('players')
         .delete()
         .eq('game_id', gameState.id)
         .eq('user_id', userId)
@@ -139,7 +139,7 @@ export   interface GameState {
       }
   
       const { count, error: countError } = await supabase
-        .from('PLAYERS')
+        .from('players')
         .select('id', { count: 'exact' })
         .eq('game_id', gameState.id)
   
@@ -150,7 +150,7 @@ export   interface GameState {
   
       if (count === 0) {
         const { error: updateError } = await supabase
-          .from('GAMES')
+          .from('games')
           .update({ status: 'completed' })
           .eq('id', gameState.id)
   

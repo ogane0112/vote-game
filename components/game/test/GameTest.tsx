@@ -9,7 +9,7 @@ import BetPopup from '@/components/game/BetPopup'
 import PauseMenu from '@/components/game/PauseMenu'
 import ResultPopup from '@/components/game/ResultPopup'
 import { useGameLogic,Player} from '../actions' // useGameLogicをインポート
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 
 
