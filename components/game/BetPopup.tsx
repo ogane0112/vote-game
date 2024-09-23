@@ -2,7 +2,7 @@ import React from 'react'
 
 interface Player {
   name: string
-  money: number
+  coin: number
 }
 
 interface BetPopupProps {

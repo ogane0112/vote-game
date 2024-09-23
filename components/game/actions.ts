@@ -68,10 +68,11 @@ export   interface GameState {
           current_round,
           topics (id, content),
           votes (id, voter_id, voted_for_id, bet_amount, topic_id),
-          players (id, user_id, coins)
+          players (id, user_auth_id, coins)
         `)
         .eq('id', gameId)
         .single()
+      console.log(data)
   
       if (error) {
         setError(error.message)

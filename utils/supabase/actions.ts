@@ -82,12 +82,12 @@ const {data:games,error: createRoomError } = await supabase
 console.log(games)
 
     
-// const { data:playerData, error } = await supabase
-// .from('players')
-// .insert([
-//   { game_id: data[0].id, other_column: 'otherValue' },
-// ])
-// .select()
+const { data:playerData, error:playerError } = await supabase
+.from('players')
+.insert([
+  { game_id: games.id},
+])
+.select()
 
 
 

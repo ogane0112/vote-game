@@ -2,7 +2,7 @@ import React from 'react'
 
 interface Player {
   name: string
-  money: number
+  coin: number
 }
 
 interface RankingBoardProps {
@@ -19,7 +19,7 @@ const RankingBoard: React.FC<RankingBoardProps> = ({ players }) => (
         <span className='text-sm sm:text-base text-cyan-300'>
           {index + 1}. {player.name}
         </span>
-        <span className='text-sm sm:text-base text-yellow-400'>{player.money}円</span>
+        <span className='text-sm sm:text-base text-yellow-400'>{player.coin}円</span>
       </div>
     ))}
   </div>

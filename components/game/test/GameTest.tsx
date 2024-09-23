@@ -32,8 +32,10 @@ const GameBoard: React.FC<{ gameId: string; userId: string }> = ({ gameId, userI
     const [showResultPopup, setShowResultPopup] = useState<boolean>(false)
     const [gameResults, setGameResults] = useState<any>(null)
   
-    const currentPlayer = gameState?.PLAYERS.find(player => player.user_id === userId)
-    const currentTopic = gameState?.TOPICS.find(topic => topic.id === gameState.current_topic_id)?.content
+    const currentPlayer = gameState?.players.find(player => player.user_id === userId)
+    console.log(currentPlayer)
+    const currentTopic = gameState?.topics.content
+    console.log(current)
   
     useEffect(() => {
       if (error) {

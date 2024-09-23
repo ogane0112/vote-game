@@ -10,17 +10,17 @@ import PauseMenu from './PauseMenu'
 // プレイヤーの型定義
 interface Player {
   name: string
-  money: number
+  coin: number
 }
 
 const GameBoard: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([
-    { name: 'Alice', money: 1000 },
-    { name: 'Bob', money: 1200 },
-    { name: 'Charlie', money: 800 },
-    { name: 'David', money: 1500 },
-    { name: 'Eve', money: 950 },
-    { name: 'Frank', money: 1100 },
+    { name: 'Alice', coin: 1000 },
+    { name: 'Bob', coin: 1200 },
+    { name: 'Charlie', coin: 800 },
+    { name: 'David', coin: 1500 },
+    { name: 'Eve', coin: 950 },
+    { name: 'Frank', coin: 1100 },
   ])
   const [currentPlayer, setCurrentPlayer] = useState<Player>(players[0])
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null)
@@ -30,7 +30,7 @@ const GameBoard: React.FC = () => {
   const [showPauseMenu, setShowPauseMenu] = useState<boolean>(false)
 
   useEffect(() => {
-    const sortedPlayers = [...players].sort((a, b) => b.money - a.money)
+    const sortedPlayers = [...players].sort((a, b) => b.coin - a.coin)
     setPlayers(sortedPlayers)
   }, [])
 
@@ -82,7 +82,7 @@ const GameBoard: React.FC = () => {
           setBetAmount={setBetAmount}
           onCancel={() => setShowBetPopup(false)}
           onBet={handleBet}
-          maxBet={currentPlayer.money}
+          maxBet={currentPlayer.coin}
         />
       )}
 
